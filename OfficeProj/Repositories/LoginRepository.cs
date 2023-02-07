@@ -70,7 +70,7 @@ namespace OfficeProj.Repositories
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                
                 new Claim("NIK", userToken.NIK),
-                new Claim("RoleId",userToken.NIK),
+                new Claim("RoleId",userToken.RoleId.ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));

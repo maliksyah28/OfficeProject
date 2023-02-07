@@ -12,7 +12,7 @@ namespace OfficeProj.Models
         [Key]
         public int Id { get; set; }
         public string DepartmentName { get; set; }
-        public string Manager_Id { get; set; }
+        public string? Manager_Id { get; set; }
     }
     
 }

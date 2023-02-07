@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OfficeProj.Context;
 
@@ -11,9 +12,10 @@ using OfficeProj.Context;
 namespace OfficeProj.Migrations
 {
     [DbContext(typeof(MyContexts))]
-    partial class MyContextsModelSnapshot : ModelSnapshot
+    [Migration("20230207040443_managerIdAllowNull")]
+    partial class managerIdAllowNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

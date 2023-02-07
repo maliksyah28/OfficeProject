@@ -17,9 +17,16 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using OfficeProj.Repositories;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+{
+    builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
+}));
+
 builder.Services.AddControllers().AddNewtonsoftJson(
     options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -38,12 +45,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
               });
 builder.Services.AddScoped<EmployeeRepository>();
 builder.Services.AddScoped<LoginRepository>();
+builder.Services.AddScoped<DepartmentRepository>();
 
 builder.Services.AddDbContext<MyContexts>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("OfficeProj")));
-builder.Services.AddCors(e =>
-{
-    e.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -56,10 +61,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("corsapp");
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
+
+
 
 app.MapControllers();
 

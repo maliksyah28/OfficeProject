@@ -8,6 +8,7 @@ namespace OfficeProj.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class LoginController : ControllerBase
     {
         private readonly LoginRepository repository;
